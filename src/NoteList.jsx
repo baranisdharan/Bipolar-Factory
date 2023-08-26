@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 
 function NoteList({ notes, updateNote, deleteNote }) {
-  const [selectedCategory, setSelectedCategory] = useState('All'); // State for selected category
-  const [currentPage, setCurrentPage] = useState(1); // State for current page
-  const notesPerPage = 5; // Number of notes per page
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState(''); // State for search query
+  const notesPerPage = 5;
 
   const filteredNotes = selectedCategory === 'All' ? notes : notes.filter(note => note.category === selectedCategory);
   
+  const filteredBySearch = filteredNotes.filter(note =>
+    note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const indexOfLastNote = currentPage * notesPerPage;
   const indexOfFirstNote = indexOfLastNote - notesPerPage;
-  const currentNotes = filteredNotes.slice(indexOfFirstNote, indexOfLastNote);
+  const currentNotes = filteredBySearch.slice(indexOfFirstNote, indexOfLastNote);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -28,6 +34,14 @@ function NoteList({ notes, updateNote, deleteNote }) {
           <option value="Personal">Personal</option>
           {/* Add more categories here */}
         </select>
+      </div>
+      <div>
+        <label>Search: </label>
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
       <ul>
         {currentNotes.map((note, index) => (
