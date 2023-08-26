@@ -23,8 +23,8 @@ function NoteEditor({ addNote }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-      <textarea
-        placeholder="Content"
+      <input
+        placeholder="text"
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />

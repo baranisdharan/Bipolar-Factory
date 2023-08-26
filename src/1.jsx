@@ -61,7 +61,7 @@ function NoteList({ notes, updateNote, deleteNote }) {
                     value={note.title}
                     onChange={(e) => updateNote(index, { ...note, title: e.target.value })}
                   />
-                  <input
+                  <textarea
                     placeholder="Content"
                     value={note.content}
                     onChange={(e) => updateNote(index, { ...note, content: e.target.value })}

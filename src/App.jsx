@@ -23,8 +23,8 @@ function App() {
   return (
     <div>
       <h1>Note Taking App</h1>
-      <NoteList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />
       <NoteEditor addNote={addNote} />
+      <NoteList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />      
     </div>
   );
 }
