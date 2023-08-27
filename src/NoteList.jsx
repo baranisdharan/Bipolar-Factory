@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Table, Container, Row, Col, Button, Form } from 'react-bootstrap';
 
 function NoteList({ notes, updateNote, deleteNote }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -28,94 +29,101 @@ function NoteList({ notes, updateNote, deleteNote }) {
   };
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-        <div>
-          <label>Filter by Category: </label>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="All">All</option>
-            <option value="Work">Work</option>
-            <option value="Personal">Personal</option>
-            <option value="Sports">Sports</option>
-            <option value="Education">Education</option>
-            <option value="Entertainment">Entertainment</option>
-          </select>
-        </div>
-        <div>
-          <label>Search: </label>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <table style={{ border: '1px solid black', width: '60%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th style={{ border: '1px solid black', padding: '8px' }}>Title</th>
-              <th style={{ border: '1px solid black', padding: '8px' }}>Content</th>
-              <th style={{ border: '1px solid black', padding: '8px' }}>Edit</th>
-              <th style={{ border: '1px solid black', padding: '8px' }}>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentNotes.map((note, index) => (
-              <tr key={index}>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {editingIndex === index ? (
-                    <input
-                      type="text"
-                      placeholder="Title"
-                      value={note.title}
-                      onChange={(e) =>
-                        updateNote(index, { ...note, title: e.target.value })
-                      }
-                    />
-                  ) : (
-                    note.title
-                  )}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {editingIndex === index ? (
-                    <input
-                      placeholder="Content"
-                      value={note.content}
-                      onChange={(e) =>
-                        updateNote(index, { ...note, content: e.target.value })
-                      }
-                    />
-                  ) : (
-                    note.content
-                  )}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  {editingIndex === index ? (
-                    <button onClick={() => setEditingIndex(-1)}>Save</button>
-                  ) : (
-                    <button onClick={() => handleEdit(index)}>Edit</button>
-                  )}
-                </td>
-                <td style={{ border: '1px solid black', padding: '8px' }}>
-                  <button onClick={() => deleteNote(index)}>Delete</button>
-                </td>
+    <Container style={{ textAlign: 'center' }}>
+      <Row className="justify-content-between" style={{ marginBottom: '10px' }}>
+        <Col md={6}>
+          <Form.Group controlId="category">
+            <Form.Label>Filter by Category:</Form.Label>
+            <Form.Control
+              as="select"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="All">All</option>
+              <option value="Work">Work</option>
+              <option value="Personal">Personal</option>
+              <option value="Sports">Sports</option>
+              <option value="Education">Education</option>
+              <option value="Entertainment">Entertainment</option>
+            </Form.Control>
+          </Form.Group>
+        </Col>
+        <Col md={6}>
+          <Form.Group controlId="search">
+            <Form.Label>Search:</Form.Label>
+            <Form.Control
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Table bordered style={{ width: '100%' }}>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Edit</th>
+                <th>Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
+            </thead>
+            <tbody>
+              {currentNotes.map((note, index) => (
+                <tr key={index}>
+                  <td>
+                    {editingIndex === index ? (
+                      <input
+                        type="text"
+                        placeholder="Title"
+                        value={note.title}
+                        onChange={(e) =>
+                          updateNote(index, { ...note, title: e.target.value })
+                        }
+                      />
+                    ) : (
+                      note.title
+                    )}
+                  </td>
+                  <td>
+                    {editingIndex === index ? (
+                      <input
+                        placeholder="Content"
+                        value={note.content}
+                        onChange={(e) =>
+                          updateNote(index, { ...note, content: e.target.value })
+                        }
+                      />
+                    ) : (
+                      note.content
+                    )}
+                  </td>
+                  <td>
+                    {editingIndex === index ? (
+                      <Button variant="primary" onClick={() => setEditingIndex(-1)}>Save</Button>
+                    ) : (
+                      <Button variant="info" onClick={() => handleEdit(index)}>Edit</Button>
+                    )}
+                  </td>
+                  <td>
+                    <Button variant="danger" onClick={() => deleteNote(index)}>Delete</Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+      <Row className="justify-content-center" style={{ marginTop: '10px' }}>
         {Array.from({ length: Math.ceil(filteredBySearch.length / notesPerPage) }, (_, index) => (
-          <button key={index} onClick={() => handlePageChange(index + 1)}>
+          <Button key={index} style={{width:'30px'}} variant="secondary" size="sm" onClick={() => handlePageChange(index + 1)}>
             {index + 1}
-          </button>
+          </Button>
         ))}
-      </div>
-    </div>
+      </Row>
+    </Container>
   );
 }
 

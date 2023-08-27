@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import NoteList from './NoteList';
 import NoteEditor from './NoteEditor';
+
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import the Bootstrap CSS
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -21,11 +24,10 @@ function App() {
   };
 
   return (
-    <div>
-      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Note Taking App</h1>
+    <Container>      
       <NoteEditor addNote={addNote} />
-      <NoteList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />      
-    </div>
+      <NoteList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />
+    </Container>
   );
 }
 

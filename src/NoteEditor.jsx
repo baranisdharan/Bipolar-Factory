@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 function NoteEditor({ addNote }) {
   const [title, setTitle] = useState('');
@@ -15,46 +16,50 @@ function NoteEditor({ addNote }) {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
-      <h2>Create a Note</h2>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ border: '1px solid black', padding: '20px', width: '300px' }}>
-          <label htmlFor="title">Title: </label>
-          <input
-            type="text"
-            id="title"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <br />
-          <br />
-          <label htmlFor="content">Content: </label>
-          <input
-            id="content"
-            placeholder="Text"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-          <br /><br />
-          <label htmlFor="category">Category: </label>
-          <select
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="Work">Work</option>
-            <option value="Personal">Personal</option>
-            <option value="Sports">Sports</option>
-            <option value="Education">Education</option>
-            <option value="Entertainment">Entertainment</option>
-          </select>
-          <br /><br />
-          <button onClick={handleSave}>Save Note</button>
-        </div>
-      </div>
+    <Container style={{ textAlign: 'center', marginBottom: '10px' }}>
+      <h3 style={{marginTop:'20px'}}>Create a Note</h3>
+      <Row className="justify-content-center">
+        <Col md={6}>
+          <Form>
+            <Form.Group controlId="title">
+              <Form.Label>Title:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="content">
+              <Form.Label>Content:</Form.Label>
+              <Form.Control
+                placeholder="Text"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="category">
+              <Form.Label>Category:</Form.Label>
+              <Form.Control
+                as="select"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Sports">Sports</option>
+                <option value="Education">Education</option>
+                <option value="Entertainment">Entertainment</option>
+              </Form.Control>
+            </Form.Group><br/>
+            <Button variant="primary" onClick={handleSave}>
+              Save Note
+            </Button>
+          </Form>
+        </Col>
+      </Row>
       <hr />
-    </div>
+    </Container>
   );
 }
 
