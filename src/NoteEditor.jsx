@@ -17,27 +17,40 @@ function NoteEditor({ addNote }) {
   return (
     <div>
       <h2>Create a Note</h2>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <input
-        placeholder="text"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <label>Category: </label>
-      <select
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-      >
-        <option value="Work">Work</option>
-        <option value="Personal">Personal</option>
-        {/* Add more categories here */}
-      </select>
-      <button onClick={handleSave}>Save Note</button>
+      <div>
+        <label htmlFor="title">Title: </label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="content">Content: </label>
+        <input
+          id="content"
+          placeholder="Text"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="category">Category: </label>
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          {/* Add more categories here */}
+        </select>
+      </div>
+      <div>
+        <button onClick={handleSave}>Save Note</button>
+      </div>
     </div>
   );
 }

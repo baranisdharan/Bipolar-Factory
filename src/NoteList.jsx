@@ -49,36 +49,59 @@ function NoteList({ notes, updateNote, deleteNote }) {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      <ul>
-        {currentNotes.map((note, index) => (
-          <li key={index}>
-            <div>
-              {editingIndex === index ? ( // Check if the current note is being edited
-                <>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentNotes.map((note, index) => (
+            <tr key={index}>
+              <td>
+                {editingIndex === index ? (
                   <input
                     type="text"
                     placeholder="Title"
                     value={note.title}
-                    onChange={(e) => updateNote(index, { ...note, title: e.target.value })}
+                    onChange={(e) =>
+                      updateNote(index, { ...note, title: e.target.value })
+                    }
                   />
+                ) : (
+                  note.title
+                )}
+              </td>
+              <td>
+                {editingIndex === index ? (
                   <input
                     placeholder="Content"
                     value={note.content}
-                    onChange={(e) => updateNote(index, { ...note, content: e.target.value })}
+                    onChange={(e) =>
+                      updateNote(index, { ...note, content: e.target.value })
+                    }
                   />
+                ) : (
+                  note.content
+                )}
+              </td>
+              <td>
+                {editingIndex === index ? (
                   <button onClick={() => setEditingIndex(-1)}>Save</button>
-                </>
-              ) : (
-                <>
-                  <span>{note.title}</span>
+                ) : (
                   <button onClick={() => handleEdit(index)}>Edit</button>
-                  <button onClick={() => deleteNote(index)}>Delete</button>
-                </>
-              )}
-            </div>
-          </li>
-        ))}
-      </ul>
+                )}
+              </td>
+              <td>
+                <button onClick={() => deleteNote(index)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <div>
         {Array.from({ length: Math.ceil(filteredBySearch.length / notesPerPage) }, (_, index) => (
           <button key={index} onClick={() => handlePageChange(index + 1)}>
