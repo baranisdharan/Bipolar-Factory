@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div>
-      <h1>Note Taking App</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Note Taking App</h1>
       <NoteEditor addNote={addNote} />
       <NoteList notes={notes} updateNote={updateNote} deleteNote={deleteNote} />      
     </div>

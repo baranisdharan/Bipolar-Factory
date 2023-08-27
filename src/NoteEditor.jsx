@@ -45,7 +45,9 @@ function NoteEditor({ addNote }) {
           >
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
-            {/* Add more categories here */}
+            <option value="Sports">Sports</option>
+            <option value="Education">Education</option>
+            <option value="Entertainment">Entertainment</option>
           </select>
           <br /><br />
           <button onClick={handleSave}>Save Note</button>
